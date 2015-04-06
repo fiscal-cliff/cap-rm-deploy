@@ -8,7 +8,8 @@ module Cap
         attr_accessor :configuration
       end
       class Configuration
-        attr_accessor :site, :user, :password, :done_status_id, :status_id_to_update
+        attr_accessor :site, :user, :password, :key
+        attr_accessor :done_status_id, :status_id_to_update
 
         def initialize
           self.site = 'http://localhost:3000'
@@ -29,17 +30,26 @@ module Cap
       end
 
       class Base < ActiveResource::Base
+        class << self
+          attr_accessor :key
+        end
+
         self.site = Deploy.configuration.site
         self.user = Deploy.configuration.user
         self.password = Deploy.configuration.password
         self.format = ActiveResource::Formats::XmlFormat
+        self.key = Deploy.configuration.key
+
+        def save
+          prefix_options[:key] = self.class.key
+          super
+        end
       end
 
       class Issue < Base
         def self.list(from)
-          output = capture "cd #{current_release}; git --no-pager log #{from}..HEAD"
           tasks = output.scan(/^[\t\ ]+.*((?<!D)(?<!\d)\d{4,5})/i).flatten.uniq
-          logger.info "Found #{tasks.count} tasks, here are those ids: #{tasks.join(', ')}"
+          puts "Found #{tasks.count} tasks, here are those ids: #{tasks.join(', ')}"
         end
 
         def process!
@@ -47,7 +57,7 @@ module Cap
           reassign!
           self.done_ratio = 100
           self.status_id = Deploy.configuration.done_status_id
-          logger.info "Updating #{issue.id}..."
+          puts "Updating #{self.id}..."
           save
         end
 
