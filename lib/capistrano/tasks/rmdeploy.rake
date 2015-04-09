@@ -1,5 +1,5 @@
 # require 'rmdeploy'
-require 'capistrano/rmdeploy'
+require_relative '../../capistrano-rmdeploy'
 
 # require 'lib/capistrano/rmdeploy'
 ###task :redmine => "redmine:default"
