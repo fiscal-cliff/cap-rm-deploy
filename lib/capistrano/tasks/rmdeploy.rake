@@ -10,9 +10,9 @@ require 'capistrano/rmdeploy'
 #       puts "Hello Default-Task!"
 #       from = source.next_revision(previous_revision)
 #       git_log = capture "cd #{current_release}; git --no-pager log #{from}..HEAD"
-#       tasks = Cap::Rm::Deploy::Issue.get_list(git_log)
+#       tasks = Capistrano::Rmdeploy::Issue.get_list(git_log)
 #       tasks.each do |task_id|
-#         issue = ::Cap::Rm::Deploy::Issue.find(task_id) rescue (puts "Unable to find #{task_id}")
+#         issue = ::Capistrano::Rmdeploy::Issue.find(task_id) rescue (puts "Unable to find #{task_id}")
 #         next if issue.nil? 
 #         issue.process!
 #       end
@@ -28,9 +28,9 @@ namespace :redmine do
     on roles(:db) do
       puts "Hello Default-Task!"
       git_log = "cd #{release_path}; git --no-pager log --reverse --ancestry-path #{fetch(:previous_revision)}..HEAD"
-      tasks = Cap::Rm::Deploy::Issue.list(git_log)
+      tasks = Capistrano::Rmdeploy::Issue.list(git_log)
       tasks.each do |task_id|
-        issue = ::Cap::Rm::Deploy::Issue.find(task_id) rescue (puts "Unable to find #{task_id}")
+        issue = Capistrano::Rmdeploy::Issue.find(task_id) rescue (puts "Unable to find #{task_id}")
         next if issue.nil? 
         issue.process!
       end
