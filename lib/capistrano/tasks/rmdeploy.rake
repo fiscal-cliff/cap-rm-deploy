@@ -40,4 +40,3 @@ namespace :redmine do
   end
 end
 
-after "deploy:finished", "redmine:default"

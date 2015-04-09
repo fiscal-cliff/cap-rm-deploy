@@ -3,9 +3,13 @@
 =Capistrano 3 version=
 -Supports only git-
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/cap/rm/deploy`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem updates tasks in the redmine when they reach production
+commit message should be started with whitespace (I was slightly addicted to the phabricator)
+example 
 
-TODO: Delete this and the text above, and describe your gem
+```bash
+git commit -am ' #1234 Critical Fix: Server has been put back on track'
+```
 
 ## Installation
 
