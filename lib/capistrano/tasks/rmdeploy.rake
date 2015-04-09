@@ -12,7 +12,7 @@ require 'capistrano/rmdeploy'
 #       git_log = capture "cd #{current_release}; git --no-pager log #{from}..HEAD"
 #       tasks = Capistrano::Rmdeploy::Issue.get_list(git_log)
 #       tasks.each do |task_id|
-#         issue = ::Capistrano::Rmdeploy::Issue.find(task_id) rescue (puts "Unable to find #{task_id}")
+#         issue = Capistrano::Rmdeploy::Issue.find(task_id) rescue (puts "Unable to find #{task_id}")
 #         next if issue.nil? 
 #         issue.process!
 #       end
@@ -38,4 +38,4 @@ namespace :redmine do
   end
 end
 
-after "deploy:restart", "redmine:default"
+after "deploy:finished", "redmine:default"
