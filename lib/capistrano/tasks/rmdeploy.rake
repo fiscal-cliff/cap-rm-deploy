@@ -1,4 +1,7 @@
+# require 'rmdeploy'
 require 'capistrano/rmdeploy'
+
+# require 'lib/capistrano/rmdeploy'
 ###task :redmine => "redmine:default"
 
 # namespace :redmine do
@@ -7,7 +10,6 @@ require 'capistrano/rmdeploy'
 #   DESC
 #   task :default do
 #     on roles(:db) do
-#       puts "Hello Default-Task!"
 #       from = source.next_revision(previous_revision)
 #       git_log = capture "cd #{current_release}; git --no-pager log #{from}..HEAD"
 #       tasks = Capistrano::Rmdeploy::Issue.get_list(git_log)
@@ -19,6 +21,7 @@ require 'capistrano/rmdeploy'
 #     end
 #   end
 # end
+# Capistrano::Rmdeploy::Issue
 
 namespace :redmine do
   desc <<-DESC
@@ -26,7 +29,6 @@ namespace :redmine do
   DESC
   task :default do
     on roles(:db) do
-      puts "Hello Default-Task!"
       git_log = "cd #{release_path}; git --no-pager log --reverse --ancestry-path #{fetch(:previous_revision)}..HEAD"
       tasks = Capistrano::Rmdeploy::Issue.list(git_log)
       tasks.each do |task_id|
