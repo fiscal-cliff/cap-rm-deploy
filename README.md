@@ -1,15 +1,17 @@
 # Capistrano::Rmdeploy
 
-=Capistrano 3 version=
--Supports only git-
+##Capistrano 3 version
+###Supports only git
 
 This gem updates tasks in the redmine when they reach production
 commit message should be started with whitespace (I was slightly addicted to the phabricator)
-example 
+example
 
 ```bash
 git commit -am ' #1234 Critical Fix: Server has been put back on track'
 ```
+
+Capistrano 2 version will be released '''very soon''' as a separate branch
 
 ## Installation
 
